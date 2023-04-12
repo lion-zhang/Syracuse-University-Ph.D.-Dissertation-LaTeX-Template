@@ -1,0 +1,87 @@
+% Syracuse University Ph.D. Dissertation LaTeX Template
+% GUIDELINES FOR DOCTORAL DISSERTATIONS & MASTER’S THESES is under the doc folder
+% Adapted from 2022 University of Pennsylvania Ph.D. Dissertation LaTeX Template
+
+% TODO:
+% 1. editing files under the sections folder
+%     - 0_1_macro_pkg.tex    % adding new package and macro
+%     - 0_2_title_info.tex   % title and personal info
+%     - 0_3_ref.tex          % references, including bibliography.bib
+%     - 1_0_abstract.tex     % abstract
+%     - 1_1_ack.tex          % acknowledgement
+%     - others               % your Body of Text
+% 2. adding your own chapters and sections in the sections folder
+% 3. including them between Line 61 and 63
+% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt]{report}
+
+\input{sections/0_1_macro_pkg}
+\input{sections/0_3_ref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PLEASE FOLLOW THE INSTRUCTIONS IN THE CODE COMMENTS
+% To uncomment a line of code, remove the % at the beginning of the line
+% To comment out a line of code, add a % at the beginning of the line
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% PRELIMINARY PAGES %%%%%
+%-------------------------------------------
+\input{sections/0_2_title_info}
+\input{sections/1_1_ack}
+\input{sections/1_0_abstract}
+\begin{document}
+
+\noPN
+\makeabstract
+\maketitle 
+\makecopyright 
+
+
+%%%% OPTIONAL ACKNOWLEDGEMENT PAGE
+\lowerMiddleRoman
+\makeacknowledgement % If not applicable, comment out this line to hide the optional acknowledgment page. If you do, you will also need to edit line 59.
+%-------------------------------------------
+
+
+\tableofcontents
+
+%%%% OPTIONAL LIST OF TABLES
+\clearpage \phantomsection \addcontentsline{toc}{chapter}{LIST OF TABLES} \listoftables % If not applicable, comment out this line to hide the optional List of Tables
+%-------------------------------------------
+
+%%%% OPTIONAL LIST OF ILLUSTRATIONS
+\clearpage \phantomsection \addcontentsline{toc}{chapter}{LIST OF ILLUSTRATIONS} \listoffigures % If not applicable, comment out this line to hide the optional List of Illustrations
+%-------------------------------------------
+
+\clearpage
+\upperRightPN
+
+%%%%% MAIN TEXT %%%%%
+\begin{mainf} % The main body of your dissertation starts below this line 
+%  >>>>>>>>>>>  include all your chapters and sections here  <<<<<<<<
+\input{sections/2_main}
+\end{mainf}
+%-------------------------------------------
+
+\input{sections/9_appendices}
+
+%%%%% BIBLIOGRAPHY %%%%%
+%-------------------------------------------
+% \begin{bibliof}
+% %\nocite{*} % If applicable, uncomment this line to display all entries in the .bib file
+% \bibliography{bibliography}
+% \end{bibliof}
+% \printbibheading
+\begin{bibliof}
+\printbibliography
+\end{bibliof}
+%-------------------------------------------
+
+\makevita
+
+\end{document}

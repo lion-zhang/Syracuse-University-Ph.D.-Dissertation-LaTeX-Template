@@ -1,0 +1,294 @@
+% Syracuse University Ph.D. Dissertation LaTeX Template syr.sty
+% Adapted from University of Pennsylvania Ph.D. Dissertation LaTeX Template upennstyle.sty
+% Adapted from Penn Biostat LaTeX Template, which was modified from the Dissertation Template for Wharton PhD Candidates in LaTeX.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{syr}[2023/03/13 Syracuse University Dissertation Style]
+
+\RequirePackage[left=1in,
+                right=1in,
+                vmargin=1in,
+                nohead,
+                includeheadfoot,
+                letterpaper]{geometry} 
+\RequirePackage[T1]{fontenc}
+\RequirePackage[american]{babel}
+\RequirePackage{csquotes}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath,amssymb,amsfonts}
+\RequirePackage{amscd}
+\RequirePackage{calc}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{caption}
+\RequirePackage{multirow}
+\RequirePackage{blindtext}
+\RequirePackage{verbatim}
+\RequirePackage{appendix}
+\RequirePackage[doublespacing]{setspace} % Sets double-spacing for the main document. Ad hoc commands required for single space tables, etc.
+\RequirePackage{array} % Also for better arrays (eg matrices) in maths
+\RequirePackage{tabularx}
+\RequirePackage{booktabs}
+\RequirePackage{pdflscape}
+
+% Justification should be left only.
+\RequirePackage[document]{ragged2e}
+
+% Page Number Position 
+\newcommand{\noPN}{
+    \pagestyle{empty}
+    \pagenumbering{roman}
+}
+
+\newcommand{\lowerMiddleRoman}{
+    \pagestyle{plain}
+}
+
+\RequirePackage{fancyhdr}
+\newcommand{\upperRightPN}{
+    \fancypagestyle{plain}{%
+    \fancyhf{} % clear all header and footer fields
+    \fancyheadoffset[R]{0.4in}
+    \fancyhead[R]{\thepage\vspace{0.4in}}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}}
+    \pagestyle{plain}
+    \pagenumbering{arabic}
+}
+
+% LINKS
+\RequirePackage[hidelinks]{hyperref}
+\hypersetup{
+    breaklinks=true
+}
+\urlstyle{same}
+\RequirePackage{tocloft}%
+\RequirePackage{parskip} % To allow for better management of the Dutch paragraph style
+\RequirePackage[compact]{titlesec}
+
+% CHAPTERS AND SECTIONS
+\renewcommand{\beforetitleunit}{0 pt}
+\titleformat{\section}[hang]{\large\bfseries}{\thesection.}{6 pt}{}
+\titleformat{\subsection}[hang]{\normalsize\bfseries}{\thesubsection.}{6 pt}{}
+\counterwithout{footnote}{chapter}
+
+
+% Format chapters (dots, including the word chapter, etc.) in ToC
+\renewcommand{\cftchapfont}{\upshape}
+\renewcommand{\cftchapleader}{\upshape\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchappagefont}{\upshape}
+\renewcommand{\cftchappresnum}{CHAPTER }
+\renewcommand{\cftchapaftersnum}{ :}
+\newlength{\mylen}   % a "scratch" length
+\settowidth{\mylen}{\cftchappresnum \cftchapaftersnum} % extra space
+\addtolength{\cftchapnumwidth}{\mylen} % add the extra space
+\renewcommand{\beforetitleunit}{0 pt}
+\titleformat{\section}[hang]{\large\bfseries}{\thesection.}{6 pt}{}
+\titleformat{\subsection}[hang]{\normalsize\bfseries}{\thesubsection.}{6 pt}{}
+ 
+% TABLE OF CONTENTS
+\setcounter{tocdepth}{1} % Only show chapters and sections in ToC
+\addto\captionsamerican{\renewcommand{\contentsname}{\hfill TABLE OF CONTENTS \hfill}}%
+\renewcommand{\cfttoctitlefont}{\large\bfseries}%
+\renewcommand{\cftaftertoctitle}{\hfill}%
+\renewcommand{\cftbeforetoctitleskip}{-21 pt} % Key value is -21 pt
+
+% LIST OF TABLES
+\addto\captionsamerican{\renewcommand{\listtablename}{LIST OF TABLES}}
+\renewcommand{\cftlottitlefont}{\large\bfseries\hfill}
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cftbeforelottitleskip}{-21 pt} % Key value is -21 pt
+\renewcommand{\cfttableader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cfttabpresnum}{TABLE }
+\newlength{\mylent}   % a "scratch" length
+\settowidth{\mylent}{\cfttabpresnum} % extra space
+\addtolength{\cfttabnumwidth}{\mylent} % add the extra space
+\setlength{\cftbeforetabskip}{-7 pt} % Approximates single-spaced entries
+
+% LIST OF ILLUSTRATIONS (figures)
+\addto\captionsamerican{\renewcommand{\listfigurename}{LIST OF ILLUSTRATIONS}}
+\renewcommand{\cftloftitlefont}{\large\bfseries\hfill}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftbeforeloftitleskip}{-21 pt} % Key value is -21 pt
+\renewcommand{\cftfigleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftfigpresnum}{FIGURE }
+\newlength{\mylenf}   % a "scratch" length
+\settowidth{\mylenf}{\cftfigpresnum} % extra space
+\addtolength{\cftfignumwidth}{\mylenf} % add the extra space
+\setlength{\cftbeforefigskip}{-7 pt} % Approximates single-spaced entries
+
+% TITLE PAGE
+  \newcommand{\gradgroup}[1]{%
+  \expandafter\gdef\csname gradgroup@\endcsname{#1}}
+\newcommand{\supervisor}[1]{%
+  \expandafter\gdef\csname supervisor@\endcsname{#1}}
+\newcount\cosup@cnt
+\cosup@cnt=0
+\newcommand{\cosupervisor}[1]{%
+  \expandafter\gdef\csname cosupervisor@\romannumeral\cosup@cnt\endcsname{#1}%
+  \advance\cosup@cnt by 1}
+\newcount\comm@cnt
+\comm@cnt=1
+\newcommand{\degreesearned}[1]{%
+  \expandafter\gdef\csname degreesearned@\romannumeral\comm@cnt\endcsname{#1}%
+  \advance\comm@cnt by 1}
+
+\renewcommand\maketitle{\par
+  \begingroup
+     \singlespace
+      \@maketitle
+  \endgroup
+  \global\let\maketitle\relax
+  \global\let\@maketitle\relax
+  % \global\let\@commitee\@empty
+  % \global\let\committee\relax
+  \global\let\and\relax
+}
+
+\def\month#1{\def\@month{#1}}
+\month{\the\month}
+
+\newcommand{\@maketitle}{%
+  \begin{center}%
+    \vglue 4em
+    \normalsize{\doublespacing\MakeUppercase{\@title}%
+    \singlespace%
+    \vskip 4em%
+    {by}
+    \vskip 0em%
+   {\@author}%
+    \vskip 3em%
+    
+  \newcount\n%
+  \n=1%
+  \loop {\csname degreesearned@\romannumeral\n\endcsname}%
+  \advance \n by 1%
+  \ifnum\n<\comm@cnt%
+  \\%\vskip 0em 
+  \repeat%
+
+  \vskip 4em
+
+  {Dissertation} \\
+  {Submitted in partial fulfillment of the requirements for the degree of} \\
+  {Doctor of Philosophy in {\csname gradgroup@\endcsname}.}
+
+  \vskip 5em
+
+  {Syracuse University} \\
+  {\@month} {\@date}
+    }%
+  \end{center}%
+   \vspace*{\fill} 
+\begin{flushright}
+   Approved:  \rule{5.5cm}{0.15mm} \\
+   {\csname supervisor@\endcsname}
+   \vskip 1em
+   Date: \rule{5.5cm}{0.15mm}
+\end{flushright}
+  \clearpage
+}
+
+
+\newcommand{\ifundefined}[1]{\expandafter\ifx\csname#1\endcsname\relax}
+
+  
+\newcommand{\makecopyright}{%
+ \clearpage
+\vspace*{\fill}
+\begin{center}
+Copyright \copyright { \@author} {\@date} \\
+All Rights Reserved
+\end{center}
+\vspace*{\fill}
+\clearpage
+}
+
+% ACKNOWLEDGEMENT
+\newcommand{\acknowledgement}[1]{%
+    \expandafter\gdef\csname acknowledgement@\endcsname{#1}}
+\newcommand{\makeacknowledgement}{%
+   \titleformat{\chapter}[hang]{\large\center\bfseries}{\scshape\thechapter}{0 pt}{}%
+   \titlespacing*{\chapter}{0pt}{-33 pt}{6 pt} % Key value is -33 pt   
+   \clearpage
+   \chapter*{ACKNOWLEDGEMENT}%
+   \addcontentsline{toc}{chapter}{ACKNOWLEDGEMENT} % This is to include this section in the Table of Contents}
+   {\csname acknowledgement@\endcsname}%
+   \clearpage
+}
+
+% Vita
+\newcommand{\vita}[1]{%
+    \expandafter\gdef\csname vita@\endcsname{#1}}
+\newcommand{\makevita}{%
+   \titleformat{\chapter}[hang]{\large\center\bfseries}{\scshape\thechapter}{0 pt}{}%
+   \titlespacing*{\chapter}{0pt}{-33 pt}{6 pt} % Key value is -33 pt   
+   \chapter*{VITA}%
+   \addcontentsline{toc}{chapter}{VITA} % This is to include this section in the Table of Contents}
+   {\csname vita@\endcsname}%
+   \clearpage
+    \pagenumbering{arabic}
+}
+
+% ABSTRACT
+\renewcommand{\abstract}[1]{%
+    \expandafter\gdef\csname abstract@\endcsname{#1}}
+\newcommand{\makeabstract}{%
+   \titleformat{\chapter}[hang]{\large\center}{\scshape\thechapter}{0 pt}{}%
+   \titlespacing*{\chapter}{0pt}{-33 pt}{6 pt} % Key value is -33 pt
+   \chapter*{ABSTRACT} \vskip -0.3em%
+   \addcontentsline{toc}{chapter}{ABSTRACT}% This is to include this section in the Table of Contents
+   % \begin{center}%
+   % {\MakeUppercase{\@title}} \vskip 0em%
+   % {\@author} \vskip -0.3em%
+   % \end{center}%
+   \thispagestyle{empty}
+    {\csname abstract@\endcsname}%
+    \clearpage%
+}
+
+% MAIN TEXT
+\newenvironment{mainf}{%
+  \titleformat{\chapter}[display]{\large\center\scshape\bfseries}{CHAPTER \thechapter}{0pt}{}
+  %\titlespacing*{\chapter}{0pt}{-29 pt}{6 pt} % Key value is -29 pt
+  \clearpage%
+  % \pagenumbering{arabic}%
+  % \pagestyle{plain} % This has to be repeated here because the lists change the style
+  \setlength{\parskip}{10 pt} % Same as Word file
+  \setlength{\parindent}{0pt} %
+}{}
+
+\newcommand{\chpt}[1]{\chapter[\textsc{#1}]{#1}}
+
+% SINGLE APPENDIX
+\newcommand{\oneappendix}{
+\renewcommand\appendixtocname{APPENDIX}
+\clearpage
+\addappheadtotoc
+\titlespacing*{\chapter}{0pt}{-33 pt}{6 pt}
+\titleformat{\chapter}[display]{\large\center\scshape\bfseries}{APPENDIX}{0pt}{}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+}
+
+% MULTIPLE APPENDICES
+\newcommand{\multappendices}{
+\renewcommand\appendixtocname{APPENDICES}
+\clearpage
+\addappheadtotoc
+\titlespacing*{\chapter}{0pt}{-33 pt}{6 pt}
+\titleformat{\chapter}[display]{\large\center\scshape\bfseries}{APPENDIX \thechapter}{0pt}{}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+}
+
+% BIBLIOGRAPHY
+\newenvironment{bibliof}{%
+\singlespacing%
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}} % This is to bring things back to normal
+\titleformat{\chapter}[hang]{\large\center\bfseries}{\thechapter}{0 pt}{}
+\titlespacing*{\chapter}{0pt}{-25 pt}{6 pt} % Key value is -25 pt
+\renewcommand\bibname{BIBLIOGRAPHY}
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{BIBLIOGRAPHY}
+\setlength{\bibsep}{\baselineskip}
+}{}
