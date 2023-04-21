@@ -103,7 +103,7 @@
 \newlength{\mylent}   % a "scratch" length
 \settowidth{\mylent}{\cfttabpresnum} % extra space
 \addtolength{\cfttabnumwidth}{\mylent} % add the extra space
-\setlength{\cftbeforetabskip}{-7 pt} % Approximates single-spaced entries
+\setlength{\cftbeforetabskip}{0 pt} % Approximates single-spaced entries  -7 -> 0
 
 % LIST OF ILLUSTRATIONS (figures)
 \addto\captionsamerican{\renewcommand{\listfigurename}{LIST OF ILLUSTRATIONS}}
@@ -115,7 +115,7 @@
 \newlength{\mylenf}   % a "scratch" length
 \settowidth{\mylenf}{\cftfigpresnum} % extra space
 \addtolength{\cftfignumwidth}{\mylenf} % add the extra space
-\setlength{\cftbeforefigskip}{-7 pt} % Approximates single-spaced entries
+\setlength{\cftbeforefigskip}{0 pt} % Approximates single-spaced entries -7 -> 0
 
 % TITLE PAGE
   \newcommand{\gradgroup}[1]{%
